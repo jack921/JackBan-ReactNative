@@ -2,19 +2,28 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  Text,
-  View
+  Navigator,
+  View,
+  Text
 } from 'react-native';
 
+import MainView from './js/main/MainView';
+
 export default class JackBan extends Component {
+  
   render() {
-    return (
-      <View style={styles.container}>
-       
-      </View>
-    );
+      return(
+        <Navigator
+            initialRoute={{component: MainView}}
+            renderScene={(route, navigator) => {
+                return <route.component navigator={navigator} {...route.args}/>
+                }
+            }/>
+        );
   }
+
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -22,16 +31,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
   },
 });
 

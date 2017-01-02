@@ -4,29 +4,34 @@ import React, {
 
 import{
     AppRegistry,
+    StyleSheet,
     Image,
-    Text,
     View,
+    Text
 }from 'react-native';
 
 class StartView extends Component{
 
-    reader(){
-        return(){
+    render(){
+        return(
             <View style={styles.container}>
-            
-            
+                 <Image
+                    require={'../image/starting.gif'}
+                    style={{height:300,width:400}}>
+                </Image>
             </View>        
-        }
+        );
     }            
 
 }
 
-var styles=StyleSheet.create({
+const styles=StyleSheet.create({
         container:{
-
+            flex:1,
+            flexDirection:'row',
+            alignItems:'center',
+            backgroundColor:'#FFE439',      
         },    
 });
 
-expect default StartView;
-
+export default StartView;
