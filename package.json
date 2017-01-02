@@ -18,5 +18,32 @@
 	},
 	"jest": {
 		"preset": "react-native"
-	}
+	},
+	"contributes": {
+       "commands": [
+            {
+                "command": "extension.showStorybookPreview",
+                "title": "Show Storybooks"
+            }
+        ],
+        "menus": {
+            "editor/title": [
+                {
+                    "command": "extension.showStorybookPreview",
+                    "when": "resourceLangId == javascript"
+                }
+            ]
+        },
+        "configuration": {
+            "type": "object",
+            "title": "Configuration",
+            "properties": {
+                "react-native-storybooks.port": {
+                    "type": "number",
+                    "default": 8081,
+                    "description": "Port number"
+                }
+            }
+        }
+    },
 }
