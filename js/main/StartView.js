@@ -21,8 +21,7 @@ class StartView extends Component{
                 </Image>
             </View>        
         );
-    }            
-
+    }           
 }
 
 const styles=StyleSheet.create({
