@@ -16,7 +16,7 @@ class StartView extends Component{
         return(
             <View style={styles.container}>
                  <Image
-                    require={'../image/starting.gif'}
+                    source={require('../image/starting.gif')}
                     style={{height:300,width:400}}>
                 </Image>
             </View>        
