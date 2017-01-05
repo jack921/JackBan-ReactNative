@@ -6,12 +6,10 @@ import{
     AppRegistry,
     StyleSheet,
     Image,
-    View,
-    Text
+    View
 }from 'react-native';
 
 class StartView extends Component{
-
     render(){
         return(
             <View style={styles.container}>
@@ -22,7 +20,6 @@ class StartView extends Component{
             </View>        
         );
     }            
-
 }
 
 const styles=StyleSheet.create({
@@ -30,6 +27,7 @@ const styles=StyleSheet.create({
             flex:1,
             flexDirection:'row',
             alignItems:'center',
+            justifyContent:'center',
             backgroundColor:'#FFE439',      
         },    
 });
