@@ -20,6 +20,7 @@ class StartView extends Component{
             </View>        
         );
     }            
+
 }
 
 const styles=StyleSheet.create({
