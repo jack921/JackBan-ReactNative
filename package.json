@@ -1,49 +1,53 @@
 {
-	"name": "JackBan",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest"
-	},
-	"dependencies": {
-		"react": "15.4.1",
-		"react-native": "0.39.2"
-	},
-	"devDependencies": {
-		"babel-jest": "18.0.0",
-		"babel-preset-react-native": "1.9.1",
-		"jest": "18.1.0",
-		"react-test-renderer": "15.4.1"
-	},
-	"jest": {
-		"preset": "react-native"
-	},
-	"contributes": {
-       "commands": [
-            {
-                "command": "extension.showStorybookPreview",
-                "title": "Show Storybooks"
-            }
-        ],
-        "menus": {
-            "editor/title": [
-                {
-                    "command": "extension.showStorybookPreview",
-                    "when": "resourceLangId == javascript"
-                }
-            ]
-        },
-        "configuration": {
-            "type": "object",
-            "title": "Configuration",
-            "properties": {
-                "react-native-storybooks.port": {
-                    "type": "number",
-                    "default": 8081,
-                    "description": "Port number"
-                }
-            }
+  "name": "JackBan",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "bundle-android": "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output app/src/main/assets/index.android.bundle --sourcemap-output app/src/main/assets/index.android.map --assets-dest android/app/src/main/res/",
+    "test": "jest"
+  },
+  "dependencies": {
+    "react": "15.4.1",
+    "react-native": "0.39.2",
+    "react-native-scrollable-tab-view": "^0.7.0",
+    "react-native-tab-navigator": "^0.3.3",
+    "react-native-vector-icons": "^4.0.0"
+  },
+  "devDependencies": {
+    "babel-jest": "18.0.0",
+    "babel-preset-react-native": "1.9.1",
+    "jest": "18.1.0",
+    "react-test-renderer": "15.4.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.showStorybookPreview",
+        "title": "Show Storybooks"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "extension.showStorybookPreview",
+          "when": "resourceLangId == javascript"
         }
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "Configuration",
+      "properties": {
+        "react-native-storybooks.port": {
+          "type": "number",
+          "default": 8081,
+          "description": "Port number"
+        }
+      }
     }
+  }
 }

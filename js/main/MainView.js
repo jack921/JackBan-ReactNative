@@ -8,10 +8,12 @@ import {
     StyleSheet,
     View,
     Text,
-    Image
+    Image,
+    Navigator
 }from 'react-native';
 
 import StartView from './StartView';
+import MainPage from './MainPage';
 
 class MainView extends Component{
 
@@ -20,7 +22,6 @@ class MainView extends Component{
         this.state={
           isLoad:false,  
         };
-
     }
 
     render(){
@@ -28,11 +29,12 @@ class MainView extends Component{
           return this.showLoadingView();  
        } 
        return(
-           <View style={styles.container}>
-                <Text style={{width:200,height:200,backgroundColor:'#FFE439'
-                            ,alignItems:'center',justifyContent:'center',textAlign:'center'
-                            ,fontSize:30}}>jack</Text>
-           </View>
+           <Navigator
+            initialRoute={{component: MainPage}}
+            renderScene={(route, navigator) => {
+                return <route.component navigator={navigator} {...route.args}/>
+                }
+            }/>
        );
     }
 
@@ -43,8 +45,6 @@ class MainView extends Component{
             </View>   
         );
     }
-
-
 }
 
 
