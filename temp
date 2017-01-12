@@ -7,96 +7,128 @@ import {
     StyleSheet,
     View,
     Text,
-    Image
+    Image,
+    ListView,
+    TouchableOpacity
 }from 'react-native';
 
-import px2pd from '../util/px2dp.js';
-import Icon from 'react-native-vector-icons/Ionicons';
-import TabNavigator from 'react-native-tab-navigator';
+var MOVIEHOT='https://api.douban.com/v2/movie/in_theaters';
+var Dimensions = require('Dimensions');
+var {width} = Dimensions.get('window');
+var {height} = Dimensions.get('window');
 
-class MainPages extends Component{
-
-     static defaultProps = {
-        selectedColor: 'rgb(22,131,251)',
-        normalColor: '#a9a9a9'
-    };
+class MovieHotSearch extends Component{
 
     constructor(props){
         super(props);
         this.state={
-            selectedTab:'home',
-        }
+            data:'jack',
+            isLoad:true,
+            dataSource: new ListView.DataSource({
+                rowHasChanged: (row1, row2) => row1 !== row2
+            }),    
+        };
     }
 
     render(){
-
+        if(this.state.isLoad){
+            return this.renderLoadingView();    
+        }
         return(
-           <View style={styles.container}>
-               <TabNavigator
-                    hidesTabTouch={true}
-                    tabBarStyle={styles.tab}
-                    sceneStyle={{ paddingBottom: styles.tabbar.height }}>
-                  {renderTabItem(this.state.homeNormal,this.state.homeSelected,'首页',createChildView('首页1'))}
-                  {renderTabItem(this.state.compassNormal,this.state.compassSelected,'发现',createChildView('首页2'))}
-                  {renderTabItem(this.state.notificationNormal,this.state.notificationSelected,'消息',createChildView('首页3'))}
-                  {renderTabItem(this.this.state.meNormal,this.state.meSelected,'我',createChildView('首页4'))}
-               </TabNavigator>
-           </View>     
+          <View style={styles.container}>  
+            <ListView
+                dataSource={this.state.dataSource}
+                renderRow={this.renderListViewItem.bind(this)}
+                contentContainerStyle={styles.listview}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}></ListView> 
+          </View>       
         );
     }
 
-    renderTabItem(img,selectimg,title,childview){
+    componentDidMount(){
+        this.FetchMovieData();
+    }
+
+    FetchMovieData(){
+        fetch(MOVIEHOT)
+            .then((response)=>response.json())
+            .then((responseData)=>{
+                this.setState({
+                    dataSource:this.state.dataSource.cloneWithRows(responseData.subjects),
+                    isLoad:false,
+                });  
+            }
+        );
+    }
+
+   renderListViewItem(movie){
         return(
-            <TabNavigator.Item
-                selected={this.state.selectedTab===title}
-                title={title}
-                renderIcon={()=><Image style={styles.tabImage} source={img}></Image>}>}
-                renderSelectedIcon={()=><Image style={styles.tabImage} source={selectimg}></Image>}
-                onPress={()=>this.setState({selectedTab:title})}>
-                {childview}
-            </TabNavigator.Item>
-        )
+            <TouchableOpacity
+                style={styles.movieitem} onPress={()=>{this.onMovieClick(movie)}}>
+                <View style={styles.movieitem}>
+                    <Image source={{uri:movie.images.medium}} style={styles.small}></Image>
+                    <Text style={styles.title}>{movie.title}</Text>  
+                </View>
+            </TouchableOpacity>
+        );
     }
 
-    componentWillMount(){
-        const {selectedColor, normalColor} = this.props;
-        Icon.getImageSource('md-notifications', 50, normalColor).then((source) => this.setState({ notificationNormal: source }));
-        Icon.getImageSource('md-notifications', 50, selectedColor).then((source) => this.setState({ notificationSelected: source }));
-        Icon.getImageSource('md-home', 50, normalColor).then((source) => this.setState({ homeNormal: source }));
-        Icon.getImageSource('md-home', 50, selectedColor).then((source) => this.setState({ homeSelected: source }));
-        Icon.getImageSource('md-person', 50, normalColor).then((source) => this.setState({ meNormal: source }));
-        Icon.getImageSource('md-person', 50, selectedColor).then((source) => this.setState({ meSelected: source }));
-        Icon.getImageSource('md-compass', 50, normalColor).then((source) => this.setState({ compassNormal: source }));
-        Icon.getImageSource('md-compass', 50, selectedColor).then((source) => this.setState({ compassSelected: source }));
+    onMovieClick(movie){
+        
     }
 
-    createChildView(tag) {  
-        return (  
-            <View style={{flex:1,backgroundColor:'#00baff',alignItems:'center',justifyContent:'center'}}>  
-                <Text style={{fontSize:22}}>{tag}</Text>  
-            </View>  
-        )  
-    }  
+    renderLoadingView(){
+        return(
+            <View style={styles.loading}>
+                <Image
+                    source={require('../image/loading.gif')}
+                    style={{height:200,width:200}}></Image>
+            </View>
+        );
+    }
 
 }
 
-const styles=StyleSheet.create({
-      container:{
-          flex:1,    
-          flexDirection:'row',
-          justifyContent:'center',      
-      },
-      tabImage:{
-          width:px2pd(22),
-          height:px2pd(22)
-      },
-      tab:{
-          height:px2pd(49),
-          alignItems:'center',
-          justifyContent:'center',
-          backgroundColor:'#fff'  
-      },
+const styles = StyleSheet.create({
+    loading: {
+        flex:1,
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent: 'center',
+        backgroundColor: '#ffffff'
+    },container:{
+        flex:1,
+        backgroundColor: '#ffffff'
+    },listview:{
+      backgroundColor: '#ffffff',
+      flexDirection:'row',
+      flexWrap:'wrap'
+    },movieitem:{
+        alignItems:'center',
+        width:width/3,
+        height:100
+    },rigthcontent:{
+        flex:1,
+        flexDirection:'column'
+    },title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginLeft: 7,
+        textAlign: 'left',
+    },originaltitle: {
+        fontSize: 13,
+        fontStyle:'italic',
+        marginTop: -2,
+        marginLeft: 7,
+        marginBottom: 4,
+    },small: {
+        margin: 7,
+        marginLeft: 13,
+        width: 64,
+        height: 103,
+    },
 });
 
-export default MainPages;
 
+export default MovieHotSearch;
