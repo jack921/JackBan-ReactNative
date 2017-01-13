@@ -35,9 +35,7 @@ class MainPages extends Component{
         
         return (
             <TabNavigator
-                hidesTabTouch={true}
-                tabBarStyle={styles.tabbar}
-                sceneStyle={{ paddingBottom: styles.tabbar.height }}>
+                tabBarStyle={styles.tabbar}>
                 {this.renderTabItem('电影',this.state.homeNormal,this.state.homeSelected,this.createMovieChildView('电影'))}
                 {this.renderTabItem('文学',this.state.meNormal,this.state.meSelected,this.createBookChildView('文学'))}
                 {this.renderTabItem('音乐',this.state.compassNormal,this.state.compassSelected,this.createMusicChildView('音乐'))}

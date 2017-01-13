@@ -9,13 +9,14 @@ import {
     Text,
     Image,
     ListView,
-    TouchableOpacity
+    TouchableOpacity,
+    ToastAndroid
 }from 'react-native';
 
 var MOVIEHOT='https://api.douban.com/v2/movie/in_theaters';
 var Dimensions = require('Dimensions');
-var {width} = Dimensions.get('window');
-var {height} = Dimensions.get('window');
+var {MyWidth} = Dimensions.get('window');
+var {MyHeight} = Dimensions.get('window');
 
 class MovieHotSearch extends Component{
 
@@ -41,7 +42,8 @@ class MovieHotSearch extends Component{
                 renderRow={this.renderListViewItem.bind(this)}
                 contentContainerStyle={styles.listStyle}
                 showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}></ListView> 
+                showsHorizontalScrollIndicator={false}
+                pageSize={3}></ListView> 
           </View>       
         );
     }
@@ -65,17 +67,17 @@ class MovieHotSearch extends Component{
    renderListViewItem(movie){
         return(
             <TouchableOpacity
-                style={styles.itemViewStyle} onPress={()=>{this.onMovieClick(movie)}}>
+                activeOpacity={0.8} onPress={()=>{this.onMovieClick(movie)}}>
                 <View style={styles.itemViewStyle}>
                     <Image source={{uri:movie.images.medium}} style={styles.itemIconStyle}></Image>
-                    <Text style={styles.itemTitleStyle}>{movie.title}</Text>  
+                    <Text numberOfLines={1} style={styles.itemTitleStyle}>{movie.title}</Text>  
                 </View>
             </TouchableOpacity>
         );
     }
 
     onMovieClick(movie){
-        
+        ToastAndroid.show(movie.title,ToastAndroid.LONG);
     }
 
     renderLoadingView(){
@@ -99,21 +101,33 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff'
     },container:{
         flex:1,
-        backgroundColor: '#ffffff'
+        backgroundColor:'#ffffff'
     },listStyle:{
-        flexDirection:'row', 
-        flexWrap:'wrap', 
+        justifyContent:'space-around',   
+        flexDirection:'row',    
+        flexWrap:'wrap',
+        marginTop:5,  
+        marginBottom:5,
+        alignItems:'center'
     },itemViewStyle:{
-        alignItems:'center',
-        width: width / 3,
-        height:100
-    },
-    itemIconStyle:{
-        width:60,
-        height:60
-    },
-    itemTitleStyle:{
-        marginTop:8
+        flexDirection:'column',
+        justifyContent:'center',
+        alignItems:'center', 
+        width:MyWidth/3,
+        height:180,
+        borderWidth: 1,
+        padding:5,
+        marginTop:3,
+        marginBottom:3
+    },itemIconStyle:{
+        width:100,
+        height:140
+    },itemTitleStyle:{
+        textAlign:'center',
+        marginTop:3,
+        flex: 1,
+        fontWeight:'bold',
+        width:70
     }
 });
 
