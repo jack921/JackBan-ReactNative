@@ -13,10 +13,9 @@ import {
     ToastAndroid
 }from 'react-native';
 
-var MOVIECOMING='https://api.douban.com/v2/movie/top250';
-var ranking=0;
+var MOVIECOMING='https://api.douban.com/v2/movie/coming_soon';
 
-class MovieTop250 extends Component{
+class MovieComing extends Component{
 
     constructor(props){
         super(props);
@@ -44,24 +43,33 @@ class MovieTop250 extends Component{
     }
 
     renderListViewItem(movie){
-     
-        ranking++;
+        var directors='无';
+        if(movie.directors[0]!=null){
+            directors=movie.directors[0].name;
+        }
+        var casts='';
+        var i=0;
+        for(var cast in movie.casts){
+            if(i===0){
+               casts=movie.casts[0].name;     
+            }else{
+               casts+=","+movie.casts[i].name;    
+            }
+            i++;
+        }
 
         return(
           <TouchableOpacity
                 activeOpacity={0.8} style={styles.listitem} onPress={()=>{this.onMovieClick(movie)}}>
-            <View style={styles.listitembg}>
-                <View style={styles.rankbg}>
-                    <Text style={styles.rankitemtext}>{ranking+""}</Text>
-                </View>
-               <View style={styles.listitem}>
+            <View style={styles.listitem}>
                 <Image style={styles.itemimage} source={{uri:movie.images.medium}}></Image>
                 <View style={styles.itemview}>
                     <Text style={styles.itemtitle}>{movie.title}</Text>
                     <Text style={styles.itemtext}>{'评分:'+movie.rating.average}</Text>
                     <Text style={styles.itemtext}>{'类型:'+movie.genres}</Text>
+                    <Text style={styles.itemtext}>{'导演:'+directors}</Text>
+                    <Text style={styles.itemtext}>{'演员:'+casts}</Text>
                 </View>    
-            </View>  
             </View>
             </TouchableOpacity>
         );
@@ -115,17 +123,17 @@ const styles =StyleSheet.create({
     },listitem:{
         flex:1,
         flexDirection:'row',
-        backgroundColor:'#ffffff'
+        backgroundColor:'#ffffff',
+        marginTop:2,
+        marginBottom:2,
+         marginLeft:3
     },itemimage:{
         width:110,
-        height:155,
-        marginLeft:3,
-        marginTop:3
+        height:150
     },itemview:{
         flex:1,
         flexDirection:'column',
         alignItems:'flex-start',
-        backgroundColor:'#ffffff',
         marginLeft:10
     },itemtitle:{
         fontSize: 22,
@@ -133,23 +141,9 @@ const styles =StyleSheet.create({
         textAlign:'left'
     },itemtext:{
         fontSize:17,
-        marginTop:10
-    },rankbg:{
-        backgroundColor:'#f1f1f1',
-        justifyContent:'center'
-    },listitembg:{
-        flex:1,
-        flexDirection:'column',
-        backgroundColor:'#ffffff',
-        marginTop:2,
-        marginBottom:2,
-        marginLeft:3
-    },rankitemtext:{
-        fontSize:17,
-        marginTop:10,
-        marginLeft:15
+        marginTop:5
     }
     
 });
 
-export default MovieTop250;
+export default MovieComing;

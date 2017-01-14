@@ -23,7 +23,6 @@ class MovieHotSearch extends Component{
     constructor(props){
         super(props);
         this.state={
-            data:'jack',
             isLoad:true,
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2) => row1 !== row2
@@ -43,7 +42,7 @@ class MovieHotSearch extends Component{
                 contentContainerStyle={styles.listStyle}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
-                pageSize={3}></ListView> 
+                pageSize={4}></ListView> 
           </View>       
         );
     }
@@ -71,6 +70,7 @@ class MovieHotSearch extends Component{
                 <View style={styles.itemViewStyle}>
                     <Image source={{uri:movie.images.medium}} style={styles.itemIconStyle}></Image>
                     <Text numberOfLines={1} style={styles.itemTitleStyle}>{movie.title}</Text>  
+                    <Text numberOfLines={1} style={styles.itemTitleStyle}>{'评分:'+movie.rating.average}</Text>  
                 </View>
             </TouchableOpacity>
         );
@@ -107,15 +107,14 @@ const styles = StyleSheet.create({
         flexDirection:'row',    
         flexWrap:'wrap',
         marginTop:5,  
-        marginBottom:5,
+        marginBottom:10,
         alignItems:'center'
     },itemViewStyle:{
         flexDirection:'column',
         justifyContent:'center',
         alignItems:'center', 
         width:MyWidth/3,
-        height:180,
-        borderWidth: 1,
+        height:190,
         padding:5,
         marginTop:3,
         marginBottom:3
@@ -124,10 +123,8 @@ const styles = StyleSheet.create({
         height:140
     },itemTitleStyle:{
         textAlign:'center',
-        marginTop:3,
-        flex: 1,
         fontWeight:'bold',
-        width:70
+        width:80
     }
 });
 
