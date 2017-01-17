@@ -15,8 +15,8 @@ import {
 
 var MOVIEHOT='https://api.douban.com/v2/movie/in_theaters';
 var Dimensions = require('Dimensions');
-var {MyWidth} = Dimensions.get('window');
-var {MyHeight} = Dimensions.get('window');
+var MyWidth = Dimensions.get('window').width;
+var MyHeight = Dimensions.get('window').height;
 
 class MovieHotSearch extends Component{
 
@@ -41,8 +41,7 @@ class MovieHotSearch extends Component{
                 renderRow={this.renderListViewItem.bind(this)}
                 contentContainerStyle={styles.listStyle}
                 showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-                pageSize={4}></ListView> 
+                showsHorizontalScrollIndicator={false}></ListView> 
           </View>       
         );
     }
@@ -65,7 +64,7 @@ class MovieHotSearch extends Component{
 
    renderListViewItem(movie){
         return(
-            <TouchableOpacity
+            <TouchableOpacity style={styles.itemViewStyle}
                 activeOpacity={0.8} onPress={()=>{this.onMovieClick(movie)}}>
                 <View style={styles.itemViewStyle}>
                     <Image source={{uri:movie.images.medium}} style={styles.itemIconStyle}></Image>
@@ -103,23 +102,18 @@ const styles = StyleSheet.create({
         flex:1,
         backgroundColor:'#ffffff'
     },listStyle:{
-        justifyContent:'space-around',   
         flexDirection:'row',    
         flexWrap:'wrap',
-        marginTop:5,  
-        marginBottom:10,
-        alignItems:'center'
     },itemViewStyle:{
         flexDirection:'column',
         justifyContent:'center',
         alignItems:'center', 
         width:MyWidth/3,
         height:190,
-        padding:5,
         marginTop:3,
         marginBottom:3
     },itemIconStyle:{
-        width:100,
+        width:110,
         height:140
     },itemTitleStyle:{
         textAlign:'center',

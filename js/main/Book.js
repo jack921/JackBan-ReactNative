@@ -16,11 +16,14 @@ import {
 import Loading from './Loading';
 
 var BaseUrl='https://api.douban.com/v2/book/search?tag=';
-var Home=["科普", "互联网", "科学", "科技","科普","用户体验", "通信", "交互", "旅行","王小波",
-      "生活", "励志", "成长",  "悬疑", "武侠", "韩寒", "奇幻", "青春文学"];
+var Home=["综合","文学"];
+var sometest=["综合","文学","流行","文化","生活","中国文学","爱情","社会学","艺术","政治","社会"];
 var position=0;
 var isMore=false;
 var data=[];
+
+var Dimensions = require('Dimensions');
+var MyWidth = Dimensions.get('window').width;
 
 class Book extends Component{
 
@@ -46,7 +49,8 @@ class Book extends Component{
                     onEndReached={this.toEnd.bind(this)}
                     renderFooter={this.renderFooter.bind(this)}
                     showsVerticalScrollIndicator={false}
-                    showsHorizontalScrollIndicator={false}></ListView>
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.listStyle}></ListView>
             </View>
         );
     }
@@ -57,7 +61,9 @@ class Book extends Component{
                 activeOpacity={0.8} style={styles.listitem} 
                 onPress={()=>{this.onMovieClick(movie)}}>
             <View style={styles.listitem}>
-                <Text>{movie.title}</Text>
+                <Image style={styles.itemimage} source={{uri:movie.image}}></Image>
+                <Text numberOfLines={1} style={styles.itemtitle}>{movie.title}</Text>
+                <Text numberOfLines={1} style={styles.itemtext}>{movie.publisher}</Text>
             </View>
           </TouchableOpacity>
         );
@@ -75,10 +81,9 @@ class Book extends Component{
          fetch(BaseUrl+Home[position])
             .then((response)=>response.json())
             .then((responseData)=>{
-                for(var book in responseData.books){
-                    data.push(book);  
+                for(i=0;i<responseData.books.length;i++){
+                    data.push(responseData.books[i]);
                 }
-                ToastAndroid.show(data,ToastAndroid.LONG);
                 this.setState({
                     dataSource:this.state.dataSource.cloneWithRows(data),
                     isLoad:false,
@@ -86,7 +91,7 @@ class Book extends Component{
                 position+=1; 
                 this.isMore=false;
             }).catch(function(error) {
-               console.warn('There has been a problem with your fetch operation: ' + error.message);
+               console.warn('There has been a problem with your fetch operation:'+error.message);
                throw error;
             });
     }
@@ -107,8 +112,7 @@ class Book extends Component{
     renderLoadingView(){
         return(
             <View style={styles.loading}>
-                <Image
-                    source={require('../image/loading.gif')}
+                <Image source={require('../image/loading.gif')}
                     style={{height:200,width:200}}></Image>
             </View>
         );
@@ -128,29 +132,30 @@ const styles =StyleSheet.create({
         flex:1,
         backgroundColor:'#ffffff'
     },listStyle:{
-        flex:1
+        flexDirection:'row',    
+        flexWrap:'wrap'  
     },listitem:{
-        flex:1,
-        flexDirection:'row',
+        width:MyWidth/3,
+        height:190,
+        flexDirection:'column',
+        justifyContent:'center',
+        alignItems:'center',
         backgroundColor:'#ffffff',
         marginTop:2,
-        marginBottom:2,
-         marginLeft:3
+        marginBottom:2
     },itemimage:{
-        width:110,
-        height:150
-    },itemview:{
-        flex:1,
-        flexDirection:'column',
-        alignItems:'flex-start',
-        marginLeft:10
+        width:100,
+        height:150,
+        marginTop:3
     },itemtitle:{
-        fontSize: 22,
-        fontWeight:'bold',
-        textAlign:'left'
-    },itemtext:{
         fontSize:17,
-        marginTop:5
+        textAlign:'left',
+        justifyContent:'flex-start'
+    },itemtext:{
+        fontSize:12,
+        marginBottom:12,
+        textAlign:'left',
+        justifyContent:'flex-start'
     }
     
 });
