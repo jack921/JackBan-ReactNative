@@ -61,19 +61,19 @@ class MainPages extends Component{
 
     createMovieChildView(tag) {  
         return (  
-            <MovieView></MovieView>
+            <MovieView navigator={this.props.navigator}></MovieView>
         )  
     }  
 
     createBookChildView(tag){
         return (  
-            <BookView></BookView>   
+            <BookView navigator={this.props.navigator}></BookView>   
         )
     }
 
     createMusicChildView(tag){
         return(
-            <MusicView></MusicView>
+            <MusicView navigator={this.props.navigator}></MusicView>
         )  
     }
 

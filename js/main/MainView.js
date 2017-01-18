@@ -34,7 +34,10 @@ class MainView extends Component{
             renderScene={(route, navigator) => {
                 return <route.component navigator={navigator} {...route.args}/>
                 }
-            }/>
+            }  
+            configureScene={(route) => {
+              return Navigator.SceneConfigs.VerticalDownSwipeJump;
+            }}/>
        );
     }
 

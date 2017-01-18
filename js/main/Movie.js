@@ -24,9 +24,9 @@ class Movie extends Component{
        return(
           <ScrollableTabView
             renderTabBar={() => <DefaultTabBar/>}>
-                <MovieHotSearch tabLabel='热映榜'></MovieHotSearch>
-                <MovieComing tabLabel='正在上映'></MovieComing>
-                <MovieTop250 tabLabel='TOP250'></MovieTop250>
+                <MovieHotSearch tabLabel='热映榜' navigator={this.props.navigator}></MovieHotSearch>
+                <MovieComing tabLabel='正在上映' navigator={this.props.navigator}></MovieComing>
+                <MovieTop250 tabLabel='TOP250' navigator={this.props.navigator}></MovieTop250>
           </ScrollableTabView>   
        );
     }

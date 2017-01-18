@@ -10,11 +10,14 @@ import {
     Image,
     ListView,
     TouchableOpacity,
-    ToastAndroid
+    ToastAndroid,
+    Navigator
 }from 'react-native';
 
+import Details from './Details.js';
 var MOVIECOMING='https://api.douban.com/v2/movie/top250';
 var ranking=0;
+
 
 class MovieTop250 extends Component{
 
@@ -68,7 +71,12 @@ class MovieTop250 extends Component{
     }
 
     onMovieClick(movie){
-         ToastAndroid.show(movie.title,ToastAndroid.LONG);
+         this.props.navigator.push({
+            id:'details',
+            passProps: {data:movie},
+            component: Details,
+            sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
+        });
     }
 
     componentDidMount(){

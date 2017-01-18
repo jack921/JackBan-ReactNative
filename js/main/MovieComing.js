@@ -10,13 +10,14 @@ import {
     Image,
     ListView,
     TouchableOpacity,
-    ToastAndroid
+    ToastAndroid,
+    Navigator
 }from 'react-native';
 
+import Details from './Details.js';
 var MOVIECOMING='https://api.douban.com/v2/movie/coming_soon';
 
 class MovieComing extends Component{
-
     constructor(props){
         super(props);
         this.state={
@@ -76,7 +77,12 @@ class MovieComing extends Component{
     }
 
     onMovieClick(movie){
-         ToastAndroid.show(movie.title,ToastAndroid.LONG);
+         this.props.navigator.push({
+            id:'details',
+            passProps: {data:movie},
+            component: Details,
+            sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
+         });
     }
 
     componentDidMount(){

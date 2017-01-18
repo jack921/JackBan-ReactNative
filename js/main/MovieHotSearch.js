@@ -10,9 +10,11 @@ import {
     Image,
     ListView,
     TouchableOpacity,
-    ToastAndroid
+    ToastAndroid,
+    Navigator
 }from 'react-native';
 
+import Details from './Details.js';
 var MOVIEHOT='https://api.douban.com/v2/movie/in_theaters';
 var Dimensions = require('Dimensions');
 var MyWidth = Dimensions.get('window').width;
@@ -76,7 +78,12 @@ class MovieHotSearch extends Component{
     }
 
     onMovieClick(movie){
-        ToastAndroid.show(movie.title,ToastAndroid.LONG);
+        this.props.navigator.push({
+            id:'details',
+            passProps: {data:movie},
+            component: Details,
+            sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
+        });
     }
 
     renderLoadingView(){
@@ -121,6 +128,5 @@ const styles = StyleSheet.create({
         width:80
     }
 });
-
 
 export default MovieHotSearch;

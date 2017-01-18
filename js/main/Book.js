@@ -10,11 +10,12 @@ import {
     Image,
     ListView,
     TouchableOpacity,
-    ToastAndroid
+    ToastAndroid,
+    Navigator
 }from 'react-native';
 
 import Loading from './Loading';
-
+import Details from './Details.js';
 var BaseUrl='https://api.douban.com/v2/book/search?tag=';
 var Home=["综合","文学"];
 var sometest=["综合","文学","流行","文化","生活","中国文学","爱情","社会学","艺术","政治","社会"];
@@ -55,22 +56,28 @@ class Book extends Component{
         );
     }
 
-    renderListViewItem(movie){
+    renderListViewItem(book){
         return(
           <TouchableOpacity
                 activeOpacity={0.8} style={styles.listitem} 
-                onPress={()=>{this.onMovieClick(movie)}}>
+                onPress={()=>{this.onMovieClick(book)}}>
             <View style={styles.listitem}>
-                <Image style={styles.itemimage} source={{uri:movie.image}}></Image>
-                <Text numberOfLines={1} style={styles.itemtitle}>{movie.title}</Text>
-                <Text numberOfLines={1} style={styles.itemtext}>{movie.publisher}</Text>
+                <Image style={styles.itemimage} source={{uri:book.image}}></Image>
+                <Text numberOfLines={1} style={styles.itemtitle}>{book.title}</Text>
+                <Text numberOfLines={1} style={styles.itemtext}>{book.publisher}</Text>
             </View>
           </TouchableOpacity>
         );
     }
 
-    onMovieClick(movie){
-         ToastAndroid.show(movie.title,ToastAndroid.LONG);
+    onMovieClick(book){
+         ToastAndroid.show(book.title,ToastAndroid.LONG);
+         this.props.navigator.push({
+            id:'details',
+            passProps: {data:book},
+            component: Details,
+            sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
+        });
     }
 
     componentDidMount(){
@@ -96,14 +103,14 @@ class Book extends Component{
             });
     }
 
-    toEnd(movie){
+    toEnd(book){
         if(!this.state.isMore){
             this.isMore=true;
             this.FetchMovieData();
         }
     }
 
-    renderFooter(movie){
+    renderFooter(book){
         return(
             <Loading style={styles.container}></Loading>
         )
@@ -159,5 +166,6 @@ const styles =StyleSheet.create({
     }
     
 });
+
 
 export default Book;

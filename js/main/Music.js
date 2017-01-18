@@ -9,10 +9,12 @@ import {
     Text,
     Image,
     ListView,
-    TouchableOpacity
+    TouchableOpacity,
+    Navigator
 }from 'react-native';
 
 import Loading from './Loading';
+import Details from './Details.js';
 var MUSICTAG=["流行","经典","韩系","欧美"];
 var MUSICURL="https://api.douban.com/v2/music/search?tag=";
 var position=0;
@@ -23,6 +25,24 @@ var Dimensions = require('Dimensions');
 var MyWidth = Dimensions.get('window').width;
 
 class Music extends Component{
+    render(){
+        let defaultName='MusicView';
+        let defaultComponent=MusicView;
+        return(
+           <Navigator
+              initialRoute={{ name: defaultName, component: defaultComponent }}
+              configureScene={(route) => {
+              return Navigator.SceneConfigs.VerticalDownSwipeJump;
+            }}
+            renderScene={(route, navigator) =>{
+              let Component = route.component;
+              return <Component {...route.params} navigator={navigator} />
+            }}/>
+        );
+    }
+}
+
+class MusicView extends Component{
 
     constructor(props){
         super(props)
@@ -101,7 +121,12 @@ class Music extends Component{
     }
 
     onMovieClick(music){
-
+        this.props.navigator.push({
+            id:'details',
+            passProps: {data:music},
+            component: Details,
+            sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
+        });
     }
 
     renderFooter(movie){
