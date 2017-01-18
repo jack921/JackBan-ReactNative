@@ -79,7 +79,7 @@ class MovieComing extends Component{
     onMovieClick(movie){
          this.props.navigator.push({
             id:'details',
-            passProps: {data:movie},
+            args: {data:movie},
             component: Details,
             sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
          });

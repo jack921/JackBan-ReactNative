@@ -10,7 +10,8 @@ import {
     Image,
     ListView,
     TouchableOpacity,
-    Navigator
+    Navigator,
+    ToastAndroid
 }from 'react-native';
 
 import Loading from './Loading';
@@ -123,7 +124,7 @@ class MusicView extends Component{
     onMovieClick(music){
         this.props.navigator.push({
             id:'details',
-            passProps: {data:music},
+            args: {data:music},
             component: Details,
             sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
         });

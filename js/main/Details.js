@@ -7,49 +7,58 @@ import {
     StyleSheet,
     View,
     Text,
-    BackAndroid
+    BackAndroid,
+    WebView,
+    ToastAndroid
 }from 'react-native';
+
+var Dimensions = require('Dimensions');
+var MyWidth = Dimensions.get('window').width;
+var MyHeight = Dimensions.get('window').height;
 
 class Details extends Component{
 
     constructor(props){
         super(props);
-        this.handleBack = this.handleBack.bind(this);
     }
 
-    componentDidMount () {
-        BackAndroid.addEventListener('hardwareBackPress', this.handleBack)
-    }
+    componentDidMount() {
+      BackAndroid.addEventListener('hardwareBackPress', this._back.bind(this))
+  }
 
-    componentWillUnmount () {
-        BackAndroid.removeEventListener('hardwareBackPress', this.handleBack)
-    }
-
-    handleBack(){
-       if (Platform.OS === 'android') {  
-        const { navigator } = this.props;  
-        const routers = navigator.getCurrentRoutes();  
-        if (routers.length > 1) {  
-            navigator.pop();  
-            return true; 
-        }  
-           return false; 
+  _back() {
+      if (this.props.navigator) {
+         this.props.navigator.pop();
+         return true;
        }
-    }
+       return false;
+  }
 
     render(){
         return(
             <View style={styles.container}>
-                <Text>{"jack"}</Text>
+                <WebView style={styles.webview}
+                    source={{uri:this.props.data.alt,method: 'GET'}}
+                    javaScriptEnabled={true}
+                    domStorageEnabled={true}
+                    scalesPageToFit={true}
+                    mediaPlaybackRequiresUserAction={true}
+                    startInLoadingState={true}>
+                </WebView>
             </View>    
         );
     }
+    
 
 }
 
 const styles=StyleSheet.create({
     container:{
         flex:1
+    },webview:{
+        width:MyWidth,
+        height:MyHeight,
+        backgroundColor:'#E8E8E8'
     }
 });
 

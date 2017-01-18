@@ -71,10 +71,9 @@ class Book extends Component{
     }
 
     onMovieClick(book){
-         ToastAndroid.show(book.title,ToastAndroid.LONG);
          this.props.navigator.push({
             id:'details',
-            passProps: {data:book},
+            args: {data:book},
             component: Details,
             sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
         });

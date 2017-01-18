@@ -78,9 +78,9 @@ class MovieHotSearch extends Component{
     }
 
     onMovieClick(movie){
-        this.props.navigator.push({
-            id:'details',
-            passProps: {data:movie},
+         this.props.navigator.push({
+            id: 'details',
+            args: {data:movie},
             component: Details,
             sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
         });
@@ -97,6 +97,7 @@ class MovieHotSearch extends Component{
     }
 
 }
+
 
 const styles = StyleSheet.create({
     loading: {
