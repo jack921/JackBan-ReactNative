@@ -26,24 +26,6 @@ var Dimensions = require('Dimensions');
 var MyWidth = Dimensions.get('window').width;
 
 class Music extends Component{
-    render(){
-        let defaultName='MusicView';
-        let defaultComponent=MusicView;
-        return(
-           <Navigator
-              initialRoute={{ name: defaultName, component: defaultComponent }}
-              configureScene={(route) => {
-              return Navigator.SceneConfigs.VerticalDownSwipeJump;
-            }}
-            renderScene={(route, navigator) =>{
-              let Component = route.component;
-              return <Component {...route.params} navigator={navigator} />
-            }}/>
-        );
-    }
-}
-
-class MusicView extends Component{
 
     constructor(props){
         super(props)

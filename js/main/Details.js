@@ -34,21 +34,20 @@ class Details extends Component{
        return false;
   }
 
-    render(){
-        return(
-            <View style={styles.container}>
-                <WebView style={styles.webview}
-                    source={{uri:this.props.data.alt,method: 'GET'}}
-                    javaScriptEnabled={true}
-                    domStorageEnabled={true}
-                    scalesPageToFit={true}
-                    mediaPlaybackRequiresUserAction={true}
-                    startInLoadingState={true}>
-                </WebView>
-            </View>    
-        );
-    }
-    
+ render(){
+    return(
+        <View style={styles.container}>
+           <WebView style={styles.webview}
+               source={{uri:this.props.data.alt,method: 'GET'}}
+               javaScriptEnabled={true}
+               domStorageEnabled={true}
+               scalesPageToFit={true}
+               mediaPlaybackRequiresUserAction={true}
+               startInLoadingState={true}>
+           </WebView>
+        </View>    
+    );
+ }
 
 }
 

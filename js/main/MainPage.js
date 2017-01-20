@@ -7,15 +7,18 @@ import {
     StyleSheet,
     View,
     Text,
-    Image
+    Image,
+    DrawerLayoutAndroid
 }from 'react-native';
 
 import px2pd from '../util/px2dp.js';
 import Icon from 'react-native-vector-icons/Ionicons';
 import TabNavigator from 'react-native-tab-navigator';
+import DrawerLayout from './DrawerLayout.js'; 
 import MovieView from './Movie.js';
 import BookView from './Book.js';
 import MusicView from './Music.js';
+   
 
 class MainPages extends Component{
 
@@ -27,19 +30,27 @@ class MainPages extends Component{
         super(props);
         this.state = {
             selectedTab: '电影',
-        }
+        };
+        this.navigationView=(
+            <DrawerLayout style={styles.avigationView} navigator={this.props.navigator}></DrawerLayout>
+        );
     }
 
     render() {
         const {selectedColor,tabName} = this.props;
-        
         return (
-            <TabNavigator
-                tabBarStyle={styles.tabbar}>
-                {this.renderTabItem('电影',this.state.homeNormal,this.state.homeSelected,this.createMovieChildView('电影'))}
-                {this.renderTabItem('文学',this.state.meNormal,this.state.meSelected,this.createBookChildView('文学'))}
-                {this.renderTabItem('音乐',this.state.compassNormal,this.state.compassSelected,this.createMusicChildView('音乐'))}
-            </TabNavigator>
+            <DrawerLayoutAndroid
+                drawerWidth = {250}
+                drawerPosition={DrawerLayoutAndroid.positions.Left}
+                renderNavigationView={() => this.navigationView}>
+              <TabNavigator
+                 tabBarStyle={styles.tabbar}>
+                 {this.renderTabItem('电影',this.state.homeNormal,this.state.homeSelected,this.createMovieChildView('电影'))}
+                 {this.renderTabItem('文学',this.state.meNormal,this.state.meSelected,this.createBookChildView('文学'))}
+                 {this.renderTabItem('音乐',this.state.compassNormal,this.state.compassSelected,this.createMusicChildView('音乐'))}
+              </TabNavigator>
+            </DrawerLayoutAndroid>
+
         );
     }
 
@@ -105,6 +116,11 @@ const styles = StyleSheet.create({
     tab: {
         width: 21,
         height: 21
+    },
+    avigationView:{
+        flex:1,
+        flexDirection:'column',
+        justifyContent:'center'
     }
 });
 
