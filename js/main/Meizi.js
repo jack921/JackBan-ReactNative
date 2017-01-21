@@ -108,7 +108,7 @@ class Meizi extends Component{
             id: 'MeiziDetail',
             args: {meizilist:data},
             component: MeiziDetail,
-            sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
+            sceneConfig: Navigator.SceneConfigs.PushFromRight
         });
     }
 

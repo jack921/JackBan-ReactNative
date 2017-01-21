@@ -15,7 +15,6 @@ import {
 
 var MyWidth = require('Dimensions').get('window').width;
 var MyHeight = require('Dimensions').get('window').height;
-import MeiziPage from './MeiziPage.js';
 
 class MeiziDetail extends Component{
 

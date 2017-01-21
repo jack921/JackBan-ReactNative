@@ -75,7 +75,7 @@ class Book extends Component{
             id:'details',
             args: {data:book},
             component: Details,
-            sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
+            sceneConfig: Navigator.SceneConfigs.PushFromRight
         });
     }
 

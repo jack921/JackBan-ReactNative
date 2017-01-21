@@ -108,7 +108,7 @@ class Music extends Component{
             id:'details',
             args: {data:music},
             component: Details,
-            sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
+            sceneConfig: Navigator.SceneConfigs.PushFromRight
         });
     }
 

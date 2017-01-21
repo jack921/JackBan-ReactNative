@@ -32,7 +32,7 @@ class MainPages extends Component{
             selectedTab: '电影',
         };
         this.navigationView=(
-            <DrawerLayout style={styles.avigationView} 
+            <DrawerLayout  
                 navigator={this.props.navigator}></DrawerLayout>
         );
     }

@@ -11,8 +11,8 @@ import {
     Navigator
 }from 'react-native';
 
-import StartView from './StartView';
-import MainPage from './MainPage';
+import StartView from './StartView.js';
+import MainPage from './MainPage.js';
 
 class MainView extends Component{
 
@@ -35,7 +35,7 @@ class MainView extends Component{
                 }
             }  
             configureScene={(route) => {
-              return Navigator.SceneConfigs.VerticalDownSwipeJump;
+              return Navigator.SceneConfigs.HorizontalSwipeJump;
             }}/>
        );
     }

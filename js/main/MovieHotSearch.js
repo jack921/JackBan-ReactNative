@@ -82,7 +82,7 @@ class MovieHotSearch extends Component{
             id: 'details',
             args: {data:movie},
             component: Details,
-            sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
+            sceneConfig: Navigator.SceneConfigs.PushFromRight
         });
     }
 
