@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   ToastAndroid,
   ToolbarAndroid,
-  ListView,
   BackAndroid,
   Platform,
   ViewPagerAndroid
@@ -16,6 +15,7 @@ import {
 
 var MyWidth = require('Dimensions').get('window').width;
 var MyHeight = require('Dimensions').get('window').height;
+import MeiziPage from './MeiziPage.js';
 
 class MeiziDetail extends Component{
 
@@ -55,32 +55,22 @@ class MeiziDetail extends Component{
 
     androidImageView(){
         var pages = [];
-        for (var i = 0; i < PAGES; i++) {
-            var pageStyle = {
-                backgroundColor: BGCOLOR[i % BGCOLOR.length],
-                alignItems: 'center',
-                padding: 20,
-            };
+        for (i = 0; i < this.props.meizilist.length;i++) {
             pages.push(
-                <View key={i} style={pageStyle} collapsable={false}>
-                    <Image style={styles.image}
-                        source={{uri: IMAGE_URIS[i % BGCOLOR.length]}}/>
+                <View key={i} style={styles.container} collapsable={false}>
+                    <Image style={styles.image} 
+                           defaultSource={require('../image/imageload.png')}
+                           source={{uri:this.props.meizilist[i].url}}></Image>
                 </View>
             );
         }   
          return(
-            <View style={styles.container}>
-                <ViewPagerAndroid
-                    style={styles.viewPager}
-                    initialPage={0}>
-                    <View style={styles.viewPagerItem} collapsable={false} key={1}>
-                        <Text>First page</Text>
-                    </View>
-                    <View style={styles.viewPagerItem} collapsable={false} key={2}>
-                        <Text>Second page</Text>
-                    </View>
-                </ViewPagerAndroid>
-            </View>
+            <ViewPagerAndroid
+                style={styles.viewPager}
+                initialPage={0}
+                ref='ViewPager'>
+                {pages} 
+            </ViewPagerAndroid>
         );
     }
 
@@ -96,8 +86,7 @@ const styles=StyleSheet.create({
         width:MyWidth,
         height:MyHeight
     },viewPager:{
-        flex:1,
-        backgroundColor:'#CCCCCC'
+        flex:1
     },viewPagerItem:{
         backgroundColor:'#CCCCCC',
         alignItems: 'center',

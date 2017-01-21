@@ -106,7 +106,7 @@ class Meizi extends Component{
     onMeiziClick(meizi){
         this.props.navigator.push({
             id: 'MeiziDetail',
-            args: {data:meizi},
+            args: {meizilist:data},
             component: MeiziDetail,
             sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump
         });
