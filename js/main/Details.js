@@ -24,7 +24,7 @@ class Details extends Component{
 
     componentDidMount() {
       BackAndroid.addEventListener('hardwareBackPress', this._back.bind(this))
-  }
+    }
 
   _back() {
       if (this.props.navigator) {

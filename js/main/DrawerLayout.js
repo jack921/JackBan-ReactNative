@@ -46,9 +46,9 @@ class DrawerLayout extends Component{
     meiziitem(action){
         if(action===1){
             this.props.navigator.push({
-                id: 'meizi',
-                component: Meizi,
-                sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJump    
+                id:'meizi',
+                component:Meizi,
+                sceneConfig:Navigator.SceneConfigs.HorizontalSwipeJump    
             });
         }
     }

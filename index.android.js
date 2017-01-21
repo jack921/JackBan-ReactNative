@@ -7,7 +7,7 @@ import {
   Text
 } from 'react-native';
 
-import MainView from './js/main/MainView';
+import MainView from './js/main/MainView.js';
 
 export default class JackBan extends Component {
   

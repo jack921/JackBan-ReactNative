@@ -28,11 +28,12 @@ class MainPages extends Component{
     };
     constructor(props) {
         super(props);
-        this.state = {
+        this.state={
             selectedTab: '电影',
         };
         this.navigationView=(
-            <DrawerLayout style={styles.avigationView} navigator={this.props.navigator}></DrawerLayout>
+            <DrawerLayout style={styles.avigationView} 
+                navigator={this.props.navigator}></DrawerLayout>
         );
     }
 

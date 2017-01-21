@@ -1,4 +1,3 @@
-
 import React,{
     Component,
 }from 'react';
@@ -78,4 +77,3 @@ var styles=StyleSheet.create({
 });
 
 export default MainView;
-
