@@ -14,7 +14,7 @@ import {
     Navigator
 }from 'react-native';
 
-import Details from './Details.js';
+import MovieMessage from './MovieMessage.js';
 var MOVIECOMING='https://api.douban.com/v2/movie/top250';
 var ranking=0;
 
@@ -72,9 +72,9 @@ class MovieTop250 extends Component{
 
     onMovieClick(movie){
          this.props.navigator.push({
-            id:'details',
+            id:'MovieMessage',
             args: {data:movie},
-            component: Details,
+            component: MovieMessage,
             sceneConfig: Navigator.SceneConfigs.PushFromRight
         });
     }

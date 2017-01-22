@@ -14,6 +14,7 @@ import {
     Navigator
 }from 'react-native';
 
+import BookMessage from './BookMessage.js';
 import Loading from './Loading';
 import Details from './Details.js';
 var BaseUrl='https://api.douban.com/v2/book/search?tag=';
@@ -73,8 +74,8 @@ class Book extends Component{
     onMovieClick(book){
          this.props.navigator.push({
             id:'details',
-            args: {data:book},
-            component: Details,
+            args: {bookData:book},
+            component: BookMessage,
             sceneConfig: Navigator.SceneConfigs.PushFromRight
         });
     }

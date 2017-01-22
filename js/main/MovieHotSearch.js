@@ -14,7 +14,7 @@ import {
     Navigator
 }from 'react-native';
 
-import Details from './Details.js';
+import MovieMessage from './MovieMessage.js';
 var MOVIEHOT='https://api.douban.com/v2/movie/in_theaters';
 var Dimensions = require('Dimensions');
 var MyWidth = Dimensions.get('window').width;
@@ -79,9 +79,9 @@ class MovieHotSearch extends Component{
 
     onMovieClick(movie){
          this.props.navigator.push({
-            id: 'details',
+            id: 'moviemessage',
             args: {data:movie},
-            component: Details,
+            component: MovieMessage,
             sceneConfig: Navigator.SceneConfigs.PushFromRight
         });
     }
