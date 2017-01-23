@@ -8,31 +8,57 @@ import {
     View,
     Text,
     Image,
-    ListView,
     TouchableOpacity,
-    ToastAndroid,
     Navigator,
+    ToastAndroid,
     ScrollView,
     Button,
     BackAndroid
 }from 'react-native';
 
+var MUSICBASE="https://api.douban.com/v2/music/";
 var Dimensions = require('Dimensions');
 var MyWidth = Dimensions.get('window').width;
-import Details from './Details.js';
+import Details from './Details.js';    
 
-class BookMessage extends Component{
+class MusicMessage extends Component{
+
+    constructor(props){
+        super(props);
+        this.state={
+            pubdate:'',
+            publisher:'',
+            summary:'',
+            tracks:''
+        };
+
+    }
 
     componentDidMount() {
-      BackAndroid.addEventListener('hardwareBackPress', this._back.bind(this))
+      BackAndroid.addEventListener('hardwareBackPress', this._back.bind(this));
+      this.FetchMusicData();
     }
 
     _back(){
       if (this.props.navigator) {
          this.props.navigator.pop();
          return true;
-       }
+      }
          return false;
+    }
+
+    FetchMusicData(){
+        fetch(MUSICBASE+this.props.musicData.id)
+            .then((response)=>response.json())
+            .then((responseData)=>{
+                this.setState({
+                    pubdate:responseData.attrs.pubdate[0],
+                    publisher:responseData.attrs.publisher[0],
+                    summary:responseData.summary,
+                    tracks:responseData.attrs.tracks[0]
+                });
+            }   
+        );
     }
 
     render(){
@@ -40,51 +66,47 @@ class BookMessage extends Component{
           <ScrollView style={{flex:1}}>
              <View style={styles.container}>
                 <View style={styles.imageviewbg}>
-                    <Image style={styles.bookimg} source={{uri:this.props.bookData.image}}></Image>
-
+                    <Image style={styles.bookimg} source={{uri:this.props.musicData.image}}></Image>
+                
                     <TouchableOpacity style={{position:'absolute',top:10,left:10}} onPress={()=>{this.back()}}>
                         <Image style={{width:35,height:35}} 
                             source={require('../image/back.png')}></Image> 
                     </TouchableOpacity>     
 
-                </View>
+                </View>      
 
-                <Text style={styles.infotitle}>{this.props.bookData.title}</Text>
+                <Text style={styles.infotitle}>{this.props.musicData.title}</Text>
 
-                <Text style={styles.infotitle}>{this.props.bookData.rating.average+'分'}</Text>  
+                <Text style={styles.infotitle}>{this.props.musicData.rating.average+'分'}</Text> 
 
-                <Text style={styles.infotext}>{this.props.bookData.author[0]}</Text>
+                <Text style={styles.infotext}>{this.props.musicData.author[0].name}</Text>
 
-                <Text style={styles.infotext}>{"出版时间:"+this.props.bookData.pubdate}</Text>
+                <Text style={styles.infotext}>{"出版时间:"+this.state.pubdate}</Text>
 
-                <Text style={styles.infotext}>{"出版社:"+this.props.bookData.publisher}</Text>
-
-                <Text style={styles.infotext}>{this.props.bookData.price}</Text>
+                <Text style={styles.infotext}>{"出版社:"+this.state.publisher}</Text>
 
                 <View style={styles.buttonview}>
-
                     <Button title='查看详情' style={styles.buttonview} 
-                        onPress={()=>{this.onLookButton(this.props.bookData)}}></Button> 
-
+                        onPress={()=>{this.onMusicButton(this.props.musicData)}}></Button> 
                 </View>          
 
                 <Text style={styles.infotip}>{'简介'}</Text>        
 
-                 <Text style={styles.infocontent}>{this.props.bookData.summary}</Text> 
+                <Text style={styles.infocontent}>{this.state.summary}</Text> 
 
-                <Text style={styles.infotip}>{'作者简介'}</Text>
+                <Text style={styles.infotip}>{'曲目'}</Text>
 
-                <Text style={styles.infocontent}>{this.props.bookData.author_intro}</Text>
+                <Text style={styles.infocontent}>{this.state.tracks}</Text>
 
-              </View>
+             </View>
           </ScrollView>
         );
     }
 
-    onLookButton(book){
-        this.props.navigator.push({
+    onMusicButton(music){
+         this.props.navigator.push({
             id:'details',
-            args: {data:book},
+            args: {data:music},
             component: Details,
             sceneConfig: Navigator.SceneConfigs.PushFromRight
         });
@@ -136,5 +158,5 @@ const styles=StyleSheet.create({
     }
 });
 
-export default BookMessage;
+export default MusicMessage;
 

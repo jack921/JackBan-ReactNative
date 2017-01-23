@@ -23,7 +23,9 @@ class Movie extends Component{
      render(){
        return(
           <ScrollableTabView
-            renderTabBar={() => <DefaultTabBar/>}>
+            renderTabBar={() => <DefaultTabBar/>}
+            tabBarUnderlineStyle={{backgroundColor: '#9B30FF'}}
+            tabBarActiveTextColor='#9B30FF'>
                 <MovieHotSearch tabLabel='热映榜' navigator={this.props.navigator}></MovieHotSearch>
                 <MovieComing tabLabel='正在上映' navigator={this.props.navigator}></MovieComing>
                 <MovieTop250 tabLabel='TOP250' navigator={this.props.navigator}></MovieTop250>

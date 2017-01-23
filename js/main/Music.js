@@ -16,6 +16,7 @@ import {
 
 import Loading from './Loading';
 import Details from './Details.js';
+import MusicMessage from './MusicMessage.js';
 var MUSICTAG=["流行","经典","韩系","欧美"];
 var MUSICURL="https://api.douban.com/v2/music/search?tag=";
 var position=0;
@@ -105,9 +106,9 @@ class Music extends Component{
 
     onMovieClick(music){
         this.props.navigator.push({
-            id:'details',
-            args: {data:music},
-            component: Details,
+            id:'MusicMessage',
+            args: {musicData:music},
+            component: MusicMessage,
             sceneConfig: Navigator.SceneConfigs.PushFromRight
         });
     }

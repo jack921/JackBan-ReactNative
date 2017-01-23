@@ -68,6 +68,18 @@ class MovieMessage extends Component{
         return(
           <ScrollView style={styles.container}>
             <View style={styles.container}>
+
+                <View style={{height:50,backgroundColor:'#3683FB',justifyContent:'center',alignItems:'center'}}>
+
+                     <TouchableOpacity style={{position:'absolute',top:10,left:10}} onPress={()=>{this.back()}}>
+                        <Image style={{width:35,height:35}} 
+                            source={require('../image/back.png')}></Image> 
+                     </TouchableOpacity> 
+
+                    <Text style={{alignItems:'center',fontSize:20,color:'#FFFFFF'}}>{'电影详情'}</Text> 
+
+                </View>
+
                 <View style={styles.messageview}>
                    <Image style={styles.infoImage} source={{uri:this.props.data.images.medium}}/> 
                    <View style={styles.infoMessage}>
@@ -118,6 +130,14 @@ class MovieMessage extends Component{
             component: Details,
             sceneConfig: Navigator.SceneConfigs.PushFromRight
         });   
+    }
+
+    back(){
+        if (this.props.navigator) {
+         this.props.navigator.pop();
+         return true;
+       }
+       return false;
     }
 
     renderListViewItem(casts){

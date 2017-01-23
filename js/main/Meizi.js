@@ -53,7 +53,9 @@ class Meizi extends Component{
         return(
             <View style={styles.container}>
                  <ToolbarAndroid logo={require('../image/grid.png')} 
-                        title='妹子' style={styles.toolbar} actions={[{title: '关闭', show: 'never'}]}/>
+                        title='妹子' style={styles.toolbar} 
+                        navIcon={require('../image/meizi_back.png')}
+                        onIconClicked={()=>{this.onBackButton()}}/>
                  <ListView
                     dataSource={this.state.dataSource}
                     renderRow={this.renderListViewItem.bind(this)}
@@ -123,6 +125,14 @@ class Meizi extends Component{
         return(
             <Loading style={styles.container}></Loading>
         )
+    }
+
+    onBackButton(){
+       if (this.props.navigator) {
+         this.props.navigator.pop();
+         return true;
+       }
+       return false;
     }
 
 }
